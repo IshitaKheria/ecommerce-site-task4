@@ -40,6 +40,7 @@ const UserContextProvider = (props) => {
             setAuthorisation(true)
             localStorage.setItem("isAuthenticated", true);
             alert('Logged In Successfully!');
+            localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
         }
         e.preventDefault();
         console.log(authorisation)
@@ -48,7 +49,7 @@ const UserContextProvider = (props) => {
         e.preventDefault();
         setUser({});
         localStorage.setItem("isAuthenticated", false);
-        
+        localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
       };
       
     return(

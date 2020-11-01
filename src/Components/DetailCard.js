@@ -68,18 +68,27 @@ const DetailCard = (props) => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
   };
+  var cartIds = JSON.parse(localStorage.Ids).ids
 
   const handleCart = (e)=>{
     console.log("Add to cart clicked!")
     console.log(cart)
     if(cart.add == 0){
         setCart({change: cart.change, open: !cart.open , message : "Item added successfully!", add: 1 ,color:"secondary", productId : cart.productId.concat(product.id)})
+        cartIds = cartIds.concat(product.id)
+        
+        console.log(cartIds)
+        localStorage.setItem("Ids",JSON.stringify({'ids': cartIds}) );
       }
       else{
         setCart({change: cart.change, open: !cart.open , message : "Item deleted successfully!", add: 0 ,color:"primary", productId: cart.productId.filter(function(id){ return id != product.id; })})
+        cartIds = cartIds.filter(function(id){ return id != product.id; }) == undefined ? [null] : cartIds.filter(function(id){ return id != product.id; });
+        localStorage.setItem("Ids",JSON.stringify({'ids': cartIds}));
       }    
     } 
     console.log(cart)
+    cartIds = JSON.parse(localStorage.Ids).ids
+    console.log(cartIds)
     return ( 
       <div>
         <Navbar />
@@ -101,7 +110,7 @@ const DetailCard = (props) => {
       <CardMedia
         className={classes.media}
         image={product.image}
-        title="Paella dish"
+        title={product.title}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
