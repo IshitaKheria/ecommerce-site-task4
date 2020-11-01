@@ -32,14 +32,14 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '320px',
   }
 }));
-console.log(data);
+//console.log(data);
 const tileData = data.product;
-console.log(tileData);
+//console.log(tileData);
 
 export default function AdvancedGridList() {
   const classes = useStyles();
   const {cart} = useContext(UserContext);
-  console.log(cart)
+  //console.log(cart)
 
   
   return (

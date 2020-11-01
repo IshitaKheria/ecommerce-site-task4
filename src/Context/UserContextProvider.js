@@ -1,7 +1,7 @@
 import React, { createContext , useState } from 'react';
 import data from '../Backend/db.js';
 import UserContext from './UserContext';
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router';
 
 const UserContextProvider = (props) => {
     const [authorisation,setAuthorisation] = useState(false);//not of use and will be removed 
@@ -11,9 +11,6 @@ const UserContextProvider = (props) => {
     const [password,setPassword]=useState("");
     const [cart, setCart] = useState({change: "false" , open: false,message : "",add: 0 ,color:"primary", productId: []});
     
-    
-
-
     const handleEmail=(e)=>{
         setEmail(e.target.value);
      }
@@ -35,12 +32,13 @@ const UserContextProvider = (props) => {
         }
         if (user.length===1) //user must be authenticated
         {
-            console.log(user)
+            //console.log(user)
             setUser(user)
-            setAuthorisation(true)
+            setAuthorisation(true)//to be removed
             localStorage.setItem("isAuthenticated", true);
             alert('Logged In Successfully!');
             localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
+            <Redirect to='/' />
         }
         e.preventDefault();
         console.log(authorisation)
@@ -50,6 +48,7 @@ const UserContextProvider = (props) => {
         setUser({});
         localStorage.setItem("isAuthenticated", false);
         localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
+        <Redirect to='/' />
       };
       
     return(

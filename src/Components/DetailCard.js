@@ -47,12 +47,12 @@ const useStyles = makeStyles((theme) => ({
   
 
 const DetailCard = (props) => {
-  console.log("data")
-  console.log(props.match.params.id)
-  console.log(props)
+  //console.log("data")
+  //console.log(props.match.params.id)
+  //console.log(props)
   //console.log(data.product);
   let products = data.product;
-  console.log(products);
+  //console.log(products);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [product,setProduct] = useState({id:"0", title: null, price: null, image: null});
@@ -73,7 +73,7 @@ const DetailCard = (props) => {
 
   const handleCart = (e)=>{
     console.log("Add to cart clicked!")
-    console.log(cart)
+    //console.log(cart)
     if(cart.add == 0){
         setCart({change: cart.change, open: !cart.open , message : "Item added successfully!", add: 1 ,color:"secondary", productId : cart.productId.concat(product.id)})
         cartIds = cartIds.concat(product.id)
@@ -87,9 +87,10 @@ const DetailCard = (props) => {
         localStorage.setItem("Ids",JSON.stringify({'ids': cartIds}));
       }    
     } 
-    console.log(cart)
-    cartIds = JSON.parse(localStorage.Ids).ids
-    console.log(cartIds)
+    //console.log(cart)
+    cartIds = JSON.parse(localStorage.Ids).ids //since it was becoming undefined 
+    //console.log(cartIds)
+
     return ( 
       <div>
         <Navbar />

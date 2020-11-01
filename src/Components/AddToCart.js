@@ -23,11 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedSnackbars(props) {
   const classes = useStyles();
-  const [message, setOpen] = React.useState(false);
-  const {cart , handleCart} = useContext(UserContext);
-  const [box,setBox] = React.useState(cart.open)
+  const {cart } = useContext(UserContext);
   let Message = cart.message;
-  console.log(box)
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

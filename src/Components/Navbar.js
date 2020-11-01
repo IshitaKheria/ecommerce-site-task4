@@ -43,6 +43,19 @@ export default function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
               >
+              <Link to="/" style={{textDecoration: 'none', color: 'black'}}>
+              <MenuItem>
+                  <IconButton
+                  aria-label="home page "
+                  aria-controls="primary-search-account-menu"
+                  aria-haspopup="true"
+                  color="inherit"
+                  >
+                  <HomeIcon />
+                  </IconButton>
+                  <p>Home</p>
+              </MenuItem>
+              </Link>
              <Link to="/cart" style={{textDecoration: 'none', color: 'black'}}>
               <MenuItem>
                   <IconButton
