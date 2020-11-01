@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const DetailCard = (props) => {
   console.log("data")
   console.log(props.match.params.id)
+  console.log(props)
   //console.log(data.product);
   let products = data.product;
   console.log(products);

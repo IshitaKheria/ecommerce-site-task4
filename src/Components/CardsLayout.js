@@ -51,7 +51,7 @@ export default function AdvancedGridList() {
             <GridListTileBar
               title={tile.title}
               actionIcon={
-                <a href={`/${tile.id}`}>
+                <a href={`/d/${tile.id}/${tile.price}`}>
                 <IconButton aria-label={`${tile.id}`} className={classes.icon}>
                   <InfoIcon />
                 </IconButton></a>
