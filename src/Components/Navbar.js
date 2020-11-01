@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import UserContext from '../Context/UserContext';
+import Button from '@material-ui/core/Button';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +25,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
   let menu = null;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const {logout} = useContext(UserContext);
   if(localStorage.isAuthenticated === 'true'){
-    menu = /* <Menu
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                id='primary-search-account-menu-mobile'
-                keepMounted
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+    menu = <Menu 
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
               >
-             <Link to="/cart" style={{textDecoration: 'none', color: 'white'}}>
+             <Link to="/cart" style={{textDecoration: 'none', color: 'black'}}>
               <MenuItem>
                   <IconButton
                   aria-label="account of current user"
@@ -39,12 +51,12 @@ export default function Navbar() {
                   aria-haspopup="true"
                   color="inherit"
                   >
-                  <AccountCircle />
+                  <ShoppingCartIcon />
                   </IconButton>
-                  <p>LOGIN</p>
+                  <p>Cart</p>
               </MenuItem>
             </Link>
-            <Link to="/cart" style={{textDecoration: 'none', color: 'white'}}>
+            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>
               <MenuItem>
                   <IconButton
                   aria-label="account of current user"
@@ -54,25 +66,19 @@ export default function Navbar() {
                   onClick={logout}
                   >
                   <ExitToAppIcon />
+                  <p>Log Out</p>
                   </IconButton>
               </MenuItem>
-            </Link> </Menu>*/
-            <Link to="/" style={{textDecoration: 'none', color: 'white'}}>
-              <MenuItem>
-                  <IconButton
-                  aria-label="account of current user"
-                  aria-controls="primary-search-account-menu"
-                  aria-haspopup="true"
-                  color="inherit"
-                  onClick={logout}
-                  >
-                  <ExitToAppIcon />
-                  </IconButton>
-              </MenuItem>
-            </Link>
+            </Link> </Menu>
           }else {
               menu = 
-              <Link to="/login" style={{textDecoration: 'none', color: 'white'}}>
+              <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}>
+              <Link to="/login" style={{textDecoration: 'none', color: 'black'}}>
               <MenuItem>
                   <IconButton
                   aria-label="account of current user"
@@ -84,7 +90,7 @@ export default function Navbar() {
                   </IconButton>
                   <p>LOGIN</p>
               </MenuItem>
-              </Link>}
+              </Link></Menu>}
   console.log("menu");
   console.log(menu);
   console.log("menu");
@@ -94,7 +100,7 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar>
         <Link to="/" style={{textDecoration: 'none', color: 'white'}}>
-        <MenuItem>
+          <Typography variant="h6" className={classes.title}>
           <IconButton 
           aria-label="home page"
           aria-controls="home-page"
@@ -102,11 +108,11 @@ export default function Navbar() {
           color="inherit">
             <HomeIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
             E-commerce
-          </Typography>
-          </MenuItem>
-          </Link>
+          </Typography></Link>
+          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+         Menu
+        </Button>
           {menu}
         </Toolbar>
       </AppBar>

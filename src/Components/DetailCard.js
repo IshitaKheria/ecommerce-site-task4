@@ -15,7 +15,7 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,9 +40,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const DetailCard = () => {
-    const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
+const DetailCard = (props) => {
+  const id=props.match.params.id
+  console.log(id)
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
