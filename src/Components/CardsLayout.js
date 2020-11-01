@@ -1,12 +1,12 @@
 import data from '../Backend/db';
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import UserContext from '../Context/UserContext';
 
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +38,10 @@ console.log(tileData);
 
 export default function AdvancedGridList() {
   const classes = useStyles();
+  const {cart} = useContext(UserContext);
+  console.log(cart)
 
+  
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
@@ -48,9 +51,10 @@ export default function AdvancedGridList() {
             <GridListTileBar
               title={tile.title}
               actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                <a href={`/${tile.id}`}>
+                <IconButton aria-label={`${tile.id}`} className={classes.icon}>
                   <InfoIcon />
-                </IconButton>
+                </IconButton></a>
               }
             />
           </GridListTile>

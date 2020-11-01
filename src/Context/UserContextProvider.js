@@ -9,7 +9,8 @@ const UserContextProvider = (props) => {
     const userData = data.users;
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
-    const [cart, setCart] = useState({change: "false" , open: false,message : "",add: 0, product: {}});
+    const [cart, setCart] = useState({change: "false" , open: false,message : "",add: 0 ,color:"primary", productId: []});
+    
     
 
 
@@ -19,18 +20,7 @@ const UserContextProvider = (props) => {
     const handlePassword=(e)=>{
         setPassword(e.target.value);
      }
-    const handleCart = (e)=>{
-        console.log("Add to cart clicked!")
-        console.log(cart)
-        if(cart.add == 0){
-            setCart({change: cart.change, open: !cart.open , message : "Item added successfully!", add: 1 , product: {}})
-          }
-          else{
-            setCart({change: cart.change, open: !cart.open , message : "Item deleted successfully!", add: 0 , product: {}})
-          }
-         
-        
-    } 
+    
      const login=(e)=>{
 
         //console.log('Log In Worked')
@@ -62,7 +52,7 @@ const UserContextProvider = (props) => {
       };
       
     return(
-        <UserContext.Provider value={{authorisation, user, cart , login , logout , handleEmail , handlePassword, handleCart}}>
+        <UserContext.Provider value={{authorisation, user, cart , setCart, login , logout , handleEmail , handlePassword }}>
             {props.children}
         </UserContext.Provider>
     )

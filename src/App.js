@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={(props) => <Login {...props} />} />
             <PrivateRoute path="/cart" component={(props) => <CartPage {...props} />} />
-            <PrivateRoute path="/details" component={(props) => <DetailCard {...props} />} />
+            <PrivateRoute path="/:id" component={(props) => <DetailCard {...props} />} />
           </UserContextProvider>
         </Switch>
       </BrowserRouter>

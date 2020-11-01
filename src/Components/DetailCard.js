@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import CustomizedSnackbars from './AddToCart';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -15,7 +15,9 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import data from '../Backend/db';
+import UserContext from '../Context/UserContext';
+import Navbar from './Navbar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     media: {
       height: 0,
       paddingTop: '56.25%', // 16:9
+      maxWidth: "470px",
+      margin: "auto",
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -39,23 +43,52 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: red[500],
     },
   }));
+  
+  
 
 const DetailCard = (props) => {
-  const id=props.match.params.id
-  console.log(id)
+  console.log("data")
+  console.log(props.match.params.id)
+  //console.log(data.product);
+  let products = data.product;
+  console.log(products);
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [product,setProduct] = useState({id:"0", title: null, price: null, image: null});
+  console.log(props.match.params.id)
+  const {cart,setCart} = useContext(UserContext);
+  
+  useEffect(()=>{
+    const ans=products.filter(product=>product.id==props.match.params.id);
+    console.log(ans[0]);
+    setProduct(ans[0]);
+    
+  },[])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
   };
 
+  const handleCart = (e)=>{
+    console.log("Add to cart clicked!")
+    console.log(cart)
+    if(cart.add == 0){
+        setCart({change: cart.change, open: !cart.open , message : "Item added successfully!", add: 1 ,color:"secondary", productId : cart.productId.concat(product.id)})
+      }
+      else{
+        setCart({change: cart.change, open: !cart.open , message : "Item deleted successfully!", add: 0 ,color:"primary", productId: cart.productId.filter(function(id){ return id != product.id; })})
+      }    
+    } 
+    console.log(cart)
     return ( 
+      <div>
+        <Navbar />
+      
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {product.id}
           </Avatar>
         }
         action={
@@ -63,25 +96,23 @@ const DetailCard = (props) => {
             <ShareIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={product.title}
       />
       <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
+        image={product.image}
         title="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          Price : ${product.price}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <CustomizedSnackbars />
+        <CustomizedSnackbars handleCart={handleCart}/>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -95,32 +126,15 @@ const DetailCard = (props) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
+        <Typography paragraph>Category: {product.category} </Typography>
+          <Typography paragraph>Description:</Typography>
           <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
+            {product.description}
           </Typography>
         </CardContent>
       </Collapse>
     </Card>
+    </div>
         
      );
 }

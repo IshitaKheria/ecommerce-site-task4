@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSnackbars() {
+export default function CustomizedSnackbars(props) {
   const classes = useStyles();
   const [message, setOpen] = React.useState(false);
   const {cart , handleCart} = useContext(UserContext);
@@ -38,8 +38,8 @@ export default function CustomizedSnackbars() {
 
   return (
     <div className={classes.root}>
-      <Button onClick={handleCart}>
-        <Fab color="secondary" size="small" className={classes.margin}>
+      <Button onClick={props.handleCart}>
+        <Fab color={cart.color} size="small" className={classes.margin}>
           <AddShoppingCartIcon />
         </Fab>
       </Button>

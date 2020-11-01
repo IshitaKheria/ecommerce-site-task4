@@ -110,7 +110,7 @@ export default function Navbar() {
           </IconButton>
             E-commerce
           </Typography></Link>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+          <Button aria-controls="simple-menu" color="inherit" aria-haspopup="true" onClick={handleClick}>
          Menu
         </Button>
           {menu}
