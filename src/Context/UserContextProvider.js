@@ -4,7 +4,7 @@ import UserContext from './UserContext';
 import {Redirect} from 'react-router-dom'
 
 const UserContextProvider = (props) => {
-    const [authorisation,setAuthorisation] = useState(false); 
+    const [authorisation,setAuthorisation] = useState(false);//not of use and will be removed 
     const [user, setUser] = useState({});
     const userData = data.users;
     const [email,setEmail]=useState("");
