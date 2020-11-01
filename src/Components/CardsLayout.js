@@ -42,9 +42,6 @@ export default function AdvancedGridList() {
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader component="div">Welcome To The Best Ecommerce site!!!</ListSubheader>
-        </GridListTile>
         {tileData.map(tile => (
           <GridListTile key={tile.id} className={classes.gridListTile}>
             <img src={tile.image} alt={tile.title} />

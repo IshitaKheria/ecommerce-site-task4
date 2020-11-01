@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import  UserContext  from '../../Context/UserContext';
+import Navbar from '../../Components/Navbar';
 
 function Copyright() {
   return (
@@ -61,10 +62,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
   
-  console.log(UserContext);
+  console.log(useContext(UserContext));
   const { login ,handleEmail,handlePassword} = useContext(UserContext);
 
   return (
+    <Grid>
+    <Navbar />
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -132,6 +135,7 @@ export default function Login() {
           </form>
         </div>
       </Grid>
+    </Grid>
     </Grid>
   );
 }

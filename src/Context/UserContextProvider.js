@@ -1,18 +1,17 @@
 import React, { createContext , useState } from 'react';
 import data from '../Backend/db.js';
 import UserContext from './UserContext';
-
+import {Redirect} from 'react-router-dom'
 
 const UserContextProvider = (props) => {
-    const [authorisation,setAuthorisation] = useState(false);
+    const [authorisation,setAuthorisation] = useState(false); 
     const [user, setUser] = useState({});
     const userData = data.users;
     const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("")
-  
-    const toggleAuth = () =>{
-        setAuthorisation(!authorisation)
-    }
+    const [password,setPassword]=useState("");
+    const [cart, setCart] = useState({});
+    
+
 
     const handleEmail=(e)=>{
         setEmail(e.target.value);
@@ -38,6 +37,8 @@ const UserContextProvider = (props) => {
             console.log(user)
             setUser(user)
             setAuthorisation(true)
+            localStorage.setItem("isAuthenticated", true);
+            alert('Logged In Successfully!');
         }
         e.preventDefault();
         console.log(authorisation)
@@ -45,10 +46,12 @@ const UserContextProvider = (props) => {
     const logout = e => {
         e.preventDefault();
         setUser({});
+        localStorage.setItem("isAuthenticated", false);
+        
       };
-
+      
     return(
-        <UserContext.Provider value={{authorisation, user, login , logout , handleEmail , handlePassword}}>
+        <UserContext.Provider value={{authorisation, user, cart , login , logout , handleEmail , handlePassword}}>
             {props.children}
         </UserContext.Provider>
     )
