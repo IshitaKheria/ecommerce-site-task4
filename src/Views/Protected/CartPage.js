@@ -41,11 +41,14 @@ const useStyles = makeStyles((theme) => ({
       },
   }));  
 console.log(data)
-//const ans=products.filter(product=>product.id==props.match.params.id);
+
 let cartItems = [];
-let cartItemsIds = JSON.parse(localStorage.Ids).ids;
-for(let i = 0; i<cartItemsIds.length; i++){
-    cartItems = cartItems.concat(data.product.filter(product=>product.id==cartItemsIds[i]))
+let cartItemsIds = JSON.parse(localStorage.Ids);
+console.log(cartItemsIds)
+console.log(cartItemsIds.ids[1])
+
+for(let i = 0; i<cartItemsIds.ids.length; i++){
+    cartItems = cartItems.concat(data.product.filter(prod=>prod.id==cartItemsIds.ids[i]))
 }
 console.log(cartItems);
 const CartPage = () => {
