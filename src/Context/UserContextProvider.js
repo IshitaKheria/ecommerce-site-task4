@@ -10,7 +10,7 @@ const UserContextProvider = (props) => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [cart, setCart] = useState({change: "false" , open: false,message : "",add: 0 ,color:"primary", productId: []});
-    
+    localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
     const handleEmail=(e)=>{
         setEmail(e.target.value);
      }
@@ -37,7 +37,6 @@ const UserContextProvider = (props) => {
             setAuthorisation(true)//to be removed
             localStorage.setItem("isAuthenticated", true);
             alert('Logged In Successfully!');
-            localStorage.setItem("Ids", JSON.stringify({ "ids":[null]}));
             <Redirect to='/' />
         }
         e.preventDefault();
